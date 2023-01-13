@@ -18,14 +18,13 @@ type Book struct {
 func init(){
 	config.Connect()
 	db = config.GetDB()
-	db.AutoMigrate(&Book{})	//(IMP) Automigrate creates the table named books with the appropreate schema (in vocab database, as menchoned in config/app.go)
+	db.AutoMigrate(&Book{})	//(IMP) 
 }
 
-// controllers use these functions to connect to database
 func (b *Book) CreateBook() *Book {
-	db.NewRecord(b)		// NewRecord, Create etc are from gorm pkg (ORM functions)
+	db.NewRecord(b)		
 	db.Create(&b)
-	return b			// returns the same thing that was send by the user
+	return b			
 }
 
 func GetAllBooks() []Book {
@@ -45,5 +44,3 @@ func DeleteBook(ID int64) Book {
 	db.Where("ID=?", ID).Delete(book)
 	return book
 }
-
-// Update function: GetBookById -> DeleteBook -> CreateBook
